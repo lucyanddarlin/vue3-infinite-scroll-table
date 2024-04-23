@@ -3,8 +3,10 @@
     ref="tableWrap"
     class="scroll-table-body-wrapper"
     :style="{
-      borderBottom: ableScroll ? '1px solid #ebeef5' : 'none',
-      borderTop: !showHeader ? '1px solid #ebeef5' : 'none',
+      color:tableCellFontColor,
+      borderLeft: `1px solid ${tableCellBorderColor}`,
+      borderBottom: ableScroll ? `1px solid ${tableCellBorderColor}` : 'none',
+      borderTop: !showHeader ? `1px solid ${tableCellBorderColor}` : 'none',
     }"
   >
     <table
@@ -12,6 +14,7 @@
       class="scroll-table-body"
       @mouseenter="handleHover"
       @mouseleave="handleLeave"
+      :style="{backgroundColor: tableCellBgColor}"
     >
       <colgroup>
         <col
@@ -34,6 +37,10 @@
             rowspan="1"
             class="td"
             @click="handleClick(item, column, $event)"
+            :style="{
+              borderBottom: `1px solid ${tableCellBorderColor}`,
+              borderRight: `1px solid ${tableCellBorderColor}`
+            }"
           >
             <div class="cell">
               {{ item[column.prop] }}
@@ -48,14 +55,11 @@
 <script lang='ts'>
 import { defineComponent, PropType, toRefs, ref } from 'vue';
 import { StoreItem, DefaultRow } from '../../types';
-import VNodes from '../../VNodes/index';
 import useScroll from './useScroll';
+import { defaultBorderColor, defaultTableCellBgColor, defaultTableCellFontColor } from '../constant';
 
 export default defineComponent({
   name: 'ScrollTableBody',
-  components: {
-    VNodes
-  },
   props: {
     /**
      * 列数据
@@ -113,6 +117,10 @@ export default defineComponent({
     const table = ref<HTMLElement | null>(null);
     const tableWrap = ref<HTMLElement | null>(null);
 
+    const tableCellFontColor = ref(defaultTableCellFontColor)
+    const tableCellBgColor = ref(defaultTableCellBgColor)
+    const tableCellBorderColor = ref(defaultBorderColor)
+
     const { tableData, ableScroll, pauseScroll, recoverScroll } = useScroll({ store, data, tableWrap, table, interval, transition, scrollCount });
 
     const handleHover = () => {
@@ -140,7 +148,10 @@ export default defineComponent({
       handleHover,
       handleLeave,
       handleClick,
-      getItemIndex
+      getItemIndex,
+      tableCellFontColor,
+      tableCellBgColor,
+      tableCellBorderColor
     };
   }
 });
@@ -150,21 +161,22 @@ export default defineComponent({
 .scroll-table-body-wrapper {
   flex: 1;
   overflow: hidden;
-  color: #606266;
+  /* color: #606266; */
   .scroll-table-body {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
-    border-left: 1px solid #ebeef5;
-    background-color: #fff;
+    /* border-left: 1px solid #ebeef5; */
+    /* background-color: #fff; */
     .tr {
-      &:hover {
+      /* TODO: hover 时的背景颜色 */
+      /* &:hover {
         background-color: #f5f7fa;
-      }
+      } */
       .td {
         text-align: center;
-        border-bottom: 1px solid #ebeef5;
-        border-right: 1px solid #ebeef5;
+        /* border-bottom: 1px solid #ebeef5;
+        border-right: 1px solid #ebeef5; */
         font-weight: 400;
         padding: 12px 0;
         .cell {

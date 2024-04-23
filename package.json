@@ -24,7 +24,9 @@
     "dev": "rollup -c rollup.config.ts -w",
     "clean": "rimraf ./dist",
     "deploy": "deploy.sh",
-    "release": "npm run build && release.sh"
+    "release": "npm run build && release.sh",
+    "publish": "npm run build && yalc push",
+    "watch": "nodemon --ignore dist/ --ignore node_modules/ --watch src/ -C -e js,jsx,ts,tsx,css,less,vue --debug -x 'npm run publish'"
   },
   "husky": {
     "hooks": {
