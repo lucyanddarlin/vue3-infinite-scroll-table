@@ -154,7 +154,7 @@ export default function useScroll({
   onMounted(startScroll)
   onBeforeUnmount(stopScroll)
 
-  watch([store.value, data.value], refresh)
+  watch(() => [store.value, data.value], refresh)
   useWindowResize(refresh)
 
   return {

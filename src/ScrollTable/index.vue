@@ -121,9 +121,6 @@ const headerCellHeight = computed<string | number>(() => {
   return props.height - props.showCount * cellHeight.value
 })
 
-// TODO: remove
-console.log(cellHeight.value, headerCellHeight.value)
-
 const handleClick = (row: DefaultRow, column: StoreItem, event: MouseEvent) => {
   emit('click', row, column, event)
 }
