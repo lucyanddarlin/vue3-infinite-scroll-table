@@ -201,9 +201,11 @@ export default defineComponent({
         /* border-bottom: 1px solid #ebeef5;
         border-right: 1px solid #ebeef5; */
         font-weight: 400;
-        padding: 12px 0;
         .cell {
-          padding: 0 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
         }
       }
     }
