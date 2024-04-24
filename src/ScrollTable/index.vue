@@ -19,6 +19,7 @@
       :hover-stop="hoverStop"
       :show-header="showHeader"
       :scroll-count="scrollCount"
+      :show-count="showCount"
       :cell-height="cellHeight"
       @click="handleClick"
     />

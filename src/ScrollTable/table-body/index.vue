@@ -113,6 +113,10 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
+    showCount: {
+      type: Number,
+      required: true,
+    },
     /**
      * 单元格高度
      */
@@ -123,8 +127,15 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props, { emit }) {
-    const { store, data, interval, transition, hoverStop, scrollCount } =
-      toRefs(props)
+    const {
+      store,
+      data,
+      interval,
+      transition,
+      hoverStop,
+      scrollCount,
+      showCount,
+    } = toRefs(props)
     const table = ref<HTMLElement | null>(null)
     const tableWrap = ref<HTMLElement | null>(null)
 
@@ -140,6 +151,7 @@ export default defineComponent({
       interval,
       transition,
       scrollCount,
+      showCount,
     })
 
     const handleHover = () => {

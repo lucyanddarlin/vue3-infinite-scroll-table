@@ -13,6 +13,7 @@ export default function useScroll({
   interval,
   transition,
   scrollCount,
+  showCount,
 }: {
   store: Ref<StoreItem[]>
   data: Ref<DefaultRow[]>
@@ -21,6 +22,7 @@ export default function useScroll({
   interval: Ref<number>
   transition: Ref<number>
   scrollCount: Ref<number>
+  showCount: Ref<number>
 }): {
   tableData: Ref<DefaultRow[]>
   ableScroll: Ref<boolean>
@@ -44,7 +46,8 @@ export default function useScroll({
     if (tableWrap.value && table.value) {
       const wrapHeight = tableWrap.value.offsetHeight
       const contentHeight = table.value.offsetHeight
-      ableScroll.value = contentHeight > wrapHeight
+      ableScroll.value =
+        contentHeight > wrapHeight && data.value.length > showCount.value
     } else {
       ableScroll.value = false
     }
