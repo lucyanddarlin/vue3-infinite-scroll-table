@@ -1,7 +1,15 @@
-<script lang='ts'>
-import { defineComponent, inject, toRefs, watch, h, onMounted, onUnmounted } from 'vue';
-import { updateStoreItemKey, removeStoreItemKey } from '../symbols';
-import uniqueId from 'lodash-es/uniqueId';
+<script lang="ts">
+import {
+  defineComponent,
+  h,
+  inject,
+  onMounted,
+  onUnmounted,
+  toRefs,
+  watch,
+} from 'vue'
+import uniqueId from 'lodash-es/uniqueId'
+import { removeStoreItemKey, updateStoreItemKey } from '../symbols'
 
 export default defineComponent({
   name: 'ScrollTableColumn',
@@ -11,7 +19,7 @@ export default defineComponent({
      */
     label: {
       type: String,
-      default: null
+      default: null,
     },
     /**
      * 对应列内容的字段名
@@ -26,38 +34,37 @@ export default defineComponent({
     width: {
       type: [String, Number],
       default: null,
-    }
+    },
   },
   setup(props) {
-    const { label, prop, width } = toRefs(props);
-    const id = uniqueId();
-    const updateStoreItem = inject(updateStoreItemKey);
-    const removeStoreItem = inject(removeStoreItemKey);
+    const { label, prop, width } = toRefs(props)
+    const id = uniqueId()
+    const updateStoreItem = inject(updateStoreItemKey)
+    const removeStoreItem = inject(removeStoreItemKey)
 
     const getStoreItem = () => ({
       id,
       label: label.value,
       prop: prop.value,
       width: width.value,
-    });
+    })
 
     watch([label, prop, width], () => {
-      updateStoreItem?.(getStoreItem());
-    });
+      updateStoreItem?.(getStoreItem())
+    })
 
     onMounted(() => {
-      updateStoreItem?.(getStoreItem());
-    });
+      updateStoreItem?.(getStoreItem())
+    })
 
     onUnmounted(() => {
-      removeStoreItem?.(id);
-    });
+      removeStoreItem?.(id)
+    })
   },
   render() {
-    return h('div');
+    return h('div')
   },
-});
+})
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

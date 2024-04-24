@@ -1,6 +1,5 @@
-
 // 默认边框颜色
-export const defaultBorderColor: string = '#363637'
+export const defaultBorderColor = '#363637'
 // 默认表头背景颜色
 export const defaultTableHeaderCellBgColor = '#000'
 // 默认表头字体大小

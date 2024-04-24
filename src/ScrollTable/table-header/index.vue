@@ -1,35 +1,36 @@
 <template>
-  <div class="scroll-table-header-wrapper" :style="{color: tableHeaderCellFontColor}">
+  <div
+    class="scroll-table-header-wrapper"
+    :style="{ color: tableHeaderCellFontColor }"
+  >
     <table
       class="scroll-table-header"
       :style="{
         backgroundColor: tableHeaderCellBgColor,
         borderLeft: `1px solid ${tableHeaderCellBorderColor}`,
         borderRight: `1px solid ${tableHeaderCellBorderColor}`,
-        }"
-      >
+      }"
+    >
       <colgroup>
-        <col
-          v-for="column in store"
-          :key="column.id"
-          :width="column.width"
-        >
+        <col v-for="column in store" :key="column.id" :width="column.width" />
       </colgroup>
       <thead>
         <tr class="tr">
           <th
-            v-for="(column) in store"
+            v-for="column in store"
             :key="column.id"
             colspan="1"
             rowspan="1"
             class="th"
             :style="{
+              height:
+                typeof cellHeight === 'string' ? cellHeight : `${cellHeight}px`,
               borderLeft: `1px solid ${tableHeaderCellBorderColor}`,
               borderRight: `1px solid ${tableHeaderCellBorderColor}`,
             }"
           >
             <div class="cell">
-                {{ column.label }}
+              {{ column.label }}
             </div>
           </th>
         </tr>
@@ -38,17 +39,26 @@
   </div>
 </template>
 
-<script lang='ts' setup>
-import {  PropType, ref } from 'vue';
-import { StoreItem } from '../../types';
-import { defaultBorderColor, defaultTableHeaderCellBgColor, defaultTableHeaderCellFontColor } from '../constant';
+<script lang="ts" setup>
+import { ref } from 'vue'
+import {
+  defaultBorderColor,
+  defaultTableHeaderCellBgColor,
+  defaultTableHeaderCellFontColor,
+} from '../constant'
+import type { PropType } from 'vue'
+import type { StoreItem } from '../../types'
 
 defineProps({
   store: {
     type: Array as PropType<StoreItem[]>,
-    default: () => []
-  }
-});
+    default: () => [],
+  },
+  cellHeight: {
+    type: [Number, String] as PropType<number | string>,
+    required: true,
+  },
+})
 
 const tableHeaderCellFontColor = ref(defaultTableHeaderCellFontColor)
 const tableHeaderCellBgColor = ref(defaultTableHeaderCellBgColor)

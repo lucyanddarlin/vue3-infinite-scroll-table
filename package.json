@@ -2,23 +2,22 @@
   "name": "vue3-infinite-scroll-table",
   "version": "0.0.1",
   "description": "vue3-infinite-scroll-table",
-  "main": "dist/vue3-scroll-table.umd.js",
-  "module": "dist/vue3-scroll-table.esm.js",
-  "esnext": "dist/vue3-scroll-table.esm.js",
-  "types": "dist/types/index.d.ts",
-  "author": "lucyanddarlin",
-  "license": "MIT",
-  "repository": "https://github.com/lucyanddarlin",
-  "homepage": "https://github.com/lucyanddarlin",
   "keywords": [
     "vue3",
     "table",
     "vue3-scroll-table"
   ],
-  "engines": {
-    "node": ">=14",
-    "npm": ">=7"
-  },
+  "license": "MIT",
+  "homepage": "https://github.com/lucyanddarlin",
+  "repository": "https://github.com/lucyanddarlin",
+  "author": "lucyanddarlin",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/vue3-scroll-table.umd.js",
+  "module": "dist/vue3-scroll-table.esm.js",
+  "esnext": "dist/vue3-scroll-table.esm.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "npm run clean && tsc --module commonjs && rollup -c rollup.config.ts",
     "dev": "rollup -c rollup.config.ts -w",
@@ -26,35 +25,36 @@
     "deploy": "deploy.sh",
     "release": "npm run build && release.sh",
     "publish": "npm run build && yalc push",
-    "watch": "nodemon --ignore dist/ --ignore node_modules/ --watch src/ -C -e js,jsx,ts,tsx,css,less,vue --debug -x 'npm run publish'"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "FORCE_COLOR=1 node scripts/verify-commit.js"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,vue}": "eslint"
+    "watch": "nodemon --ignore dist/ --ignore node_modules/ --watch src/ -C -e js,jsx,ts,tsx,css,less,vue --debug -x 'npm run publish'",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
+    "vue": "3.2.x"
+  },
+  "dependencies": {
+    "easy-keyframe-animation": "^0.0.5",
+    "lodash-es": "^4.17.21",
     "vue": "3.2.x"
   },
   "devDependencies": {
     "@babel/types": "^7.16.0",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rushstack/eslint-patch": "^1.1.4",
+    "@sxzz/eslint-config": "^2.4.4",
     "@types/lodash-es": "^4.17.5",
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
     "@vue/compiler-sfc": "^3.2.4",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
     "autoprefixer": "^10.3.1",
     "chalk": "^4.1.2",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "7.16.0",
+    "eslint": "^8.22.0",
+    "eslint-plugin-vue": "^9.3.0",
     "husky": "4.2.3",
     "lint-staged": "^11.1.2",
     "postcss": "^8.3.6",
+    "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.56.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -65,12 +65,17 @@
     "tslib": "^2.3.1",
     "typescript": "^4.3.5"
   },
-  "dependencies": {
-    "easy-keyframe-animation": "^0.0.5",
-    "lodash-es": "^4.17.21",
-    "vue": "3.2.x"
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7"
   },
-  "files": [
-    "dist"
-  ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "FORCE_COLOR=1 node scripts/verify-commit.js"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,vue}": "eslint"
+  }
 }

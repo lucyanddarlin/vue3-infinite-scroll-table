@@ -1,12 +1,12 @@
-import { onBeforeUnmount } from 'vue';
-import throttle from 'lodash-es/throttle';
+import { onBeforeUnmount } from 'vue'
+import throttle from 'lodash-es/throttle'
 
 export default function useWindowResize(callback: () => void): void {
-  const handleResize = throttle(callback, 8);
+  const handleResize = throttle(callback, 8)
 
-  window.addEventListener('resize', handleResize);
+  window.addEventListener('resize', handleResize)
 
   onBeforeUnmount(() => {
-    window.removeEventListener('resize', handleResize);
-  });
+    window.removeEventListener('resize', handleResize)
+  })
 }

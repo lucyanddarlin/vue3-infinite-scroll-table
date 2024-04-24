@@ -1,5 +1,7 @@
-import { VNode } from 'vue';
+import type { VNode } from 'vue'
 
-export default function VNodes(props: { vnodes: VNode | VNode[] }): VNode | VNode[] {
-  return props.vnodes;
+export default function VNodes(props: {
+  vnodes: VNode | VNode[]
+}): VNode | VNode[] {
+  return props.vnodes
 }

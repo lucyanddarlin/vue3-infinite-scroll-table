@@ -3,7 +3,7 @@
     ref="tableWrap"
     class="scroll-table-body-wrapper"
     :style="{
-      color:tableCellFontColor,
+      color: tableCellFontColor,
       borderLeft: `1px solid ${tableCellBorderColor}`,
       borderBottom: ableScroll ? `1px solid ${tableCellBorderColor}` : 'none',
       borderTop: !showHeader ? `1px solid ${tableCellBorderColor}` : 'none',
@@ -12,16 +12,12 @@
     <table
       ref="table"
       class="scroll-table-body"
+      :style="{ backgroundColor: tableCellBgColor }"
       @mouseenter="handleHover"
       @mouseleave="handleLeave"
-      :style="{backgroundColor: tableCellBgColor}"
     >
       <colgroup>
-        <col
-          v-for="column in store"
-          :key="column.id"
-          :width="column.width"
-        >
+        <col v-for="column in store" :key="column.id" :width="column.width" />
       </colgroup>
       <tbody>
         <tr
@@ -36,11 +32,13 @@
             colspan="1"
             rowspan="1"
             class="td"
-            @click="handleClick(item, column, $event)"
             :style="{
+              height:
+                typeof cellHeight === 'string' ? cellHeight : `${cellHeight}px`,
               borderBottom: `1px solid ${tableCellBorderColor}`,
-              borderRight: `1px solid ${tableCellBorderColor}`
+              borderRight: `1px solid ${tableCellBorderColor}`,
             }"
+            @click="handleClick(item, column, $event)"
           >
             <div class="cell">
               {{ item[column.prop] }}
@@ -52,11 +50,16 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRefs, ref } from 'vue';
-import { StoreItem, DefaultRow } from '../../types';
-import useScroll from './useScroll';
-import { defaultBorderColor, defaultTableCellBgColor, defaultTableCellFontColor } from '../constant';
+<script lang="ts">
+import { defineComponent, ref, toRefs } from 'vue'
+import {
+  defaultBorderColor,
+  defaultTableCellBgColor,
+  defaultTableCellFontColor,
+} from '../constant'
+import useScroll from './useScroll'
+import type { DefaultRow, StoreItem } from '../../types'
+import type { PropType } from 'vue'
 
 export default defineComponent({
   name: 'ScrollTableBody',
@@ -66,14 +69,14 @@ export default defineComponent({
      */
     store: {
       type: Array as PropType<StoreItem[]>,
-      default: () => []
+      default: () => [],
     },
     /**
      * 用户传入的 data
      */
     data: {
       type: Array as PropType<DefaultRow[]>,
-      default: () => []
+      default: () => [],
     },
     /**
      * 滚动间隔
@@ -99,46 +102,66 @@ export default defineComponent({
     /**
      * 是否显示头部
      */
-     showHeader: {
+    showHeader: {
       type: Boolean,
-      default: true
+      default: true,
     },
     /**
      * 滚动个数
      */
-     scrollCount: {
+    scrollCount: {
       type: Number,
-      default: 1
+      default: 1,
+    },
+    /**
+     * 单元格高度
+     */
+    cellHeight: {
+      type: [Number, String] as PropType<string | number>,
+      required: true,
     },
   },
   emits: ['click'],
-  setup(props, {emit}) {
-    const { store, data, interval, transition, hoverStop, scrollCount } = toRefs(props);
-    const table = ref<HTMLElement | null>(null);
-    const tableWrap = ref<HTMLElement | null>(null);
+  setup(props, { emit }) {
+    const { store, data, interval, transition, hoverStop, scrollCount } =
+      toRefs(props)
+    const table = ref<HTMLElement | null>(null)
+    const tableWrap = ref<HTMLElement | null>(null)
 
     const tableCellFontColor = ref(defaultTableCellFontColor)
     const tableCellBgColor = ref(defaultTableCellBgColor)
     const tableCellBorderColor = ref(defaultBorderColor)
 
-    const { tableData, ableScroll, pauseScroll, recoverScroll } = useScroll({ store, data, tableWrap, table, interval, transition, scrollCount });
+    const { tableData, ableScroll, pauseScroll, recoverScroll } = useScroll({
+      store,
+      data,
+      tableWrap,
+      table,
+      interval,
+      transition,
+      scrollCount,
+    })
 
     const handleHover = () => {
       if (hoverStop.value) {
-        pauseScroll();
+        pauseScroll()
       }
-    };
+    }
     const handleLeave = () => {
       if (hoverStop.value) {
-        recoverScroll();
+        recoverScroll()
       }
-    };
-    const handleClick = (row: DefaultRow, column: StoreItem, event: MouseEvent) => {
-      emit('click', row, column, event);
-    };
+    }
+    const handleClick = (
+      row: DefaultRow,
+      column: StoreItem,
+      event: MouseEvent
+    ) => {
+      emit('click', row, column, event)
+    }
     const getItemIndex = (item: DefaultRow): number => {
-      return data.value.findIndex(i => i === item);
-    };
+      return data.value.indexOf(item)
+    }
 
     return {
       table,
@@ -151,10 +174,10 @@ export default defineComponent({
       getItemIndex,
       tableCellFontColor,
       tableCellBgColor,
-      tableCellBorderColor
-    };
-  }
-});
+      tableCellBorderColor,
+    }
+  },
+})
 </script>
 
 <style lang="scss">
