@@ -35,6 +35,7 @@
             :style="{
               height:
                 typeof cellHeight === 'string' ? cellHeight : `${cellHeight}px`,
+                lineHeight: typeof cellHeight === 'string' ? `23px` : `${cellHeight - 1}px`,
               borderBottom: `1px solid ${tableCellBorderColor}`,
               borderRight: `1px solid ${tableCellBorderColor}`,
             }"
@@ -196,13 +197,10 @@ export default defineComponent({
 .scroll-table-body-wrapper {
   flex: 1;
   overflow: hidden;
-  /* color: #606266; */
   .scroll-table-body {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
-    /* border-left: 1px solid #ebeef5; */
-    /* background-color: #fff; */
     .tr {
       /* TODO: hover 时的背景颜色 */
       /* &:hover {
@@ -210,15 +208,6 @@ export default defineComponent({
       } */
       .td {
         text-align: center;
-        /* border-bottom: 1px solid #ebeef5;
-        border-right: 1px solid #ebeef5; */
-        font-weight: 400;
-        .cell {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-        }
       }
     }
   }
