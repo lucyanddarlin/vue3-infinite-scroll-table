@@ -35,7 +35,8 @@
             :style="{
               height:
                 typeof cellHeight === 'string' ? cellHeight : `${cellHeight}px`,
-                lineHeight: typeof cellHeight === 'string' ? `23px` : `${cellHeight - 1}px`,
+              lineHeight:
+                typeof cellHeight === 'string' ? `23px` : `${cellHeight - 1}px`,
               borderBottom: `1px solid ${tableCellBorderColor}`,
               borderRight: `1px solid ${tableCellBorderColor}`,
             }"
