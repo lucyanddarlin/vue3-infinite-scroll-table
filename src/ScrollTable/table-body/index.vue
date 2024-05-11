@@ -35,15 +35,17 @@
             :style="{
               height:
                 typeof cellHeight === 'string' ? cellHeight : `${cellHeight}px`,
-              lineHeight:
-                typeof cellHeight === 'string' ? `23px` : `${cellHeight - 1}px`,
+              // lineHeight:
+              //   typeof cellHeight === 'string' ? `23px` : `${cellHeight - 1}px`,
               borderBottom: `1px solid ${tableCellBorderColor}`,
               borderRight: `1px solid ${tableCellBorderColor}`,
             }"
             @click="handleClick(item, column, $event)"
           >
             <div class="cell">
-              {{ item[column.prop] }}
+              <span>
+                {{ item[column.prop] }}
+              </span>
             </div>
           </td>
         </tr>
@@ -211,6 +213,17 @@ export default defineComponent({
         text-align: center;
         word-wrap: break-word; /* 允许单词内换行 */
         overflow-wrap: break-word; /* 允许单词内换行 */
+        .cell {
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          span {
+            word-break: break-all; /* 允许单词内换行 */
+            overflow-wrap: break-word; /* 允许单词内换行 */
+          }
+        }
       }
     }
   }
