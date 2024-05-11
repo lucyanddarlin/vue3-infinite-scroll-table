@@ -209,6 +209,8 @@ export default defineComponent({
       } */
       .td {
         text-align: center;
+        word-wrap: break-word; /* 允许单词内换行 */
+        overflow-wrap: break-word; /* 允许单词内换行 */
       }
     }
   }
