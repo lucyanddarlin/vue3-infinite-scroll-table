@@ -10,6 +10,7 @@
       v-if="showHeader"
       :store="store"
       :cell-height="headerCellHeight"
+      :header-style="headerStyle"
     />
     <table-body
       :store="store"
@@ -91,6 +92,10 @@ const props = defineProps({
   showCount: {
     type: Number,
     default: 5,
+  },
+  headerStyle: {
+    type: Object,
+    default: () => {},
   },
 })
 

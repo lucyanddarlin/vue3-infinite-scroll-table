@@ -6,9 +6,13 @@
     <table
       class="scroll-table-header"
       :style="{
-        backgroundColor: tableHeaderCellBgColor,
-        borderLeft: `1px solid ${tableHeaderCellBorderColor}`,
-        borderRight: `1px solid ${tableHeaderCellBorderColor}`,
+        ...headerStyle,
+        borderLeft: `1px solid ${
+          headerStyle.borderColor || tableHeaderCellBorderColor
+        }`,
+        borderRight: `1px solid ${
+          headerStyle.borderColor || tableHeaderCellBorderColor
+        }`,
       }"
     >
       <colgroup>
@@ -25,8 +29,12 @@
             :style="{
               height:
                 typeof cellHeight === 'string' ? cellHeight : `${cellHeight}px`,
-              borderLeft: `1px solid ${tableHeaderCellBorderColor}`,
-              borderRight: `1px solid ${tableHeaderCellBorderColor}`,
+              borderLeft: `1px solid ${
+                headerStyle.borderColor || tableHeaderCellBorderColor
+              }`,
+              borderRight: `1px solid ${
+                headerStyle.borderColor || tableHeaderCellBorderColor
+              }`,
             }"
           >
             <div class="cell">
@@ -43,10 +51,9 @@
 import { ref } from 'vue'
 import {
   defaultBorderColor,
-  defaultTableHeaderCellBgColor,
   defaultTableHeaderCellFontColor,
 } from '../constant'
-import type { PropType } from 'vue'
+import type { CSSProperties, PropType } from 'vue'
 import type { StoreItem } from '../../types'
 
 defineProps({
@@ -58,10 +65,13 @@ defineProps({
     type: [Number, String] as PropType<number | string>,
     required: true,
   },
+  headerStyle: {
+    type: Object as PropType<CSSProperties>,
+    required: true,
+  },
 })
 
 const tableHeaderCellFontColor = ref(defaultTableHeaderCellFontColor)
-const tableHeaderCellBgColor = ref(defaultTableHeaderCellBgColor)
 const tableHeaderCellBorderColor = ref(defaultBorderColor)
 </script>
 
